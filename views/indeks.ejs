@@ -5,48 +5,6 @@
     <title>Virtualna Videoteka</title>
     <link rel="stylesheet" href="/style/style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
-    <style>
-        /* Dodajemo ove stilove da osiguramo ispravan raspored bez obzira na tvoj style.css */
-        .glavni-kontejner {
-            display: flex;
-            flex-direction: column; /* Slaže elemente jedan ispod drugog (Filteri pa ostalo) */
-            width: 95%;
-            margin: 0 auto;
-        }
-
-        .donji-dio {
-            display: flex; /* Slaže Tablicu i Favorite jedno pored drugog */
-            flex-direction: row;
-            gap: 20px;
-            width: 100%;
-            align-items: flex-start;
-        }
-
-        #filteri {
-            width: 100%; /* Filteri zauzimaju cijelu širinu na vrhu */
-            background: #f4f4f4;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            box-sizing: border-box;
-        }
-
-        .tablica-sekcija {
-            flex: 3; /* Tablica zauzima 75% širine */
-            overflow-x: auto;
-        }
-
-        #favoriti-sekcija {
-            flex: 1; /* Favoriti zauzimaju 25% širine */
-            min-width: 250px;
-            background: #f0f7ff;
-            padding: 15px;
-            border: 2px solid #007bff;
-            border-radius: 8px;
-            position: sticky;
-            top: 10px;
-        }
-    </style>
 </head>
 <body>
 
