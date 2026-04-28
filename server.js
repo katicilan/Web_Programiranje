@@ -3,40 +3,45 @@ const path = require("path");
 const fs = require("fs");
 
 const app = express();
+const PORT = 3001;
 
-const PORT = process.env.PORT || 3001;
-
-// EJS setup
 app.set("view engine", "ejs");
-
-// static files (public folder)
 app.use(express.static("public"));
 
-// početna stranica
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
-});
-
-// galerija
+// RUTA ZA SLIKE - prilagođena tvom EJS-u
 app.get("/slike", (req, res) => {
-  const folderPath = path.join(__dirname, "public", "images");
-  const files = fs.readdirSync(folderPath);
+    const imagesPath = path.join(__dirname, "public", "images");
+    
+    fs.readdir(imagesPath, (err, files) => {
+        if (err) {
+            console.error("Greška pri čitanju slika:", err);
+            return res.render("slike", { images: [] });
+        }
 
-  const images = files
-    .filter(file =>
-      file.endsWith(".jpg") ||
-      file.endsWith(".png") ||
-      file.endsWith(".jpeg")
-    )
-    .map((file, index) => ({
-      url: `/images/${file}`,
-      id: `img${index + 1}`,
-      title: `Slika ${index + 1}`
-    }));
+        // Mapiramo datoteke u objekte s id, url i title kako tvoj EJS traži
+        const images = files
+            .filter(file => /\.(jpg|jpeg|png|webp)$/i.test(file))
+            .map((file, index) => ({
+                id: `img${index}`,
+                url: `/images/${file}`,
+                title: file.split('.')[0] // Uzima ime datoteke kao naslov
+            }));
 
-  res.render("slike", { images });
+        res.render("slike", { images: images });
+    });
 });
+
+// OSTALE RUTE
+app.get("/filmovi.csv", (req, res) => {
+    res.sendFile(path.join(__dirname, "filmovi.csv"));
+});
+
+app.get("/indeks", (req, res) => {
+    res.render("indeks");
+});
+
+app.get("/", (req, res) => { res.redirect("/indeks"); });
 
 app.listen(PORT, () => {
-  console.log(`Server radi na portu ${PORT}`);
+    console.log(`Server radi na http://localhost:${PORT}/indeks`);
 });

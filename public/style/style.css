@@ -28,24 +28,35 @@ header {
     display: block;
 }
 
-/* MENU */
+/* MENU - IZMIJENJENO: stavke su sada jedna pored druge */
 .menu {
     display: none;
     list-style: none;
     padding: 0;
+    margin: 10px 0;
 }
 
 #menu-toggle:checked + .hamburger + .menu {
-    display: block;
+    display: flex;         /* Promijenjeno iz block u flex */
+    flex-direction: row;   /* Stavke idu vodoravno */
+    justify-content: center; /* Centriranje stavki */
+    gap: 20px;            /* Razmak između linkova */
+    flex-wrap: wrap;       /* Ako nema mjesta, prelaze u novi red */
 }
 
 .menu li {
-    margin: 10px 0;
+    margin: 5px 0;
 }
 
 .menu a {
     color: white;
     text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+.menu a:hover {
+    background: #444;
 }
 
 /* TABLICA */
@@ -64,38 +75,68 @@ th, td {
     padding: 10px;
 }
 
-/* LAYOUT */
+/* LAYOUT - IZMIJENJENO: osigurava raspored Filteri (gore), Tablica (lijevo), Favoriti (desno) */
 .layout {
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* Prisiljava filtere da budu gore */
+    padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
-/* desktop */
+/* Kontejner koji drži tablicu i favorite (dodajemo ovo u HTML ako već nismo) */
+.donji-dio {
+    display: flex;
+    flex-direction: column; /* Na mobitelu jedno ispod drugog */
+    gap: 20px;
+    width: 100%;
+}
+
+/* DESKTOP layout (min-width: 768px) */
 @media (min-width: 768px) {
-    .layout {
-        flex-direction: row;
+    .donji-dio {
+        flex-direction: row; /* Na desktopu jedno pored drugog */
         align-items: flex-start;
     }
 
     .content {
-        flex: 2;
+        flex: 3; /* Tablica zauzima više mjesta */
+        margin: 0;
     }
 
     aside {
-        flex: 1;
-        margin-left: 20px;
+        flex: 1; /* Favoriti zauzimaju manje mjesta */
+        margin: 0;
     }
 }
 
-/* CONTENT BOX */
+/* FILTERI BOX */
+#filteri {
+    background: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* CONTENT BOX (Tablica sekcija) */
 .content {
     background: white;
     padding: 20px;
-    margin: 20px;
     border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-/* SLIKA */
+/* FAVORITI (Aside) */
+aside {
+    background: #f0f7ff;
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid #007bff;
+    text-align: left;
+}
+
+/* SLIKA UNUTAR ASIDE (ako je imaš) */
 aside img {
     width: 100%;
     height: auto;
@@ -113,4 +154,5 @@ footer {
     background: #222;
     color: white;
     padding: 10px;
+    margin-top: 20px;
 }
